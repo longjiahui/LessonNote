@@ -1,0 +1,20 @@
+在编辑时将vim调到后台   ctrl + z  操作完毕之后 fg  将后台的vim调后前台
+
+//查找
+
+/world   从当前的光标下向下查找   
+n        next下一个 
+N        上一个
+
+?world   从当前光标下向上查找
+n        上一个
+N	 下一个
+
+//查找到之后替换
+:%s/abcde/hello         全文替换 但只是每一行的第一个出现
+:%s/llo/xyz/g           全文替换  替换所有
+:%s/llo/xyz/gc           全文替换  替换所有 但是会问
+:4,10s/llo/xyz/g       将第4到第10行下的所有的llo换成xyz
+
+//插入模式
+ctrl + p   /  ctrl + n  补全

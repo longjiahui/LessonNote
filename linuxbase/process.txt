@@ -1,0 +1,77 @@
+
+ps   process snapshot  进程快照
+
+ps auxf   
+ps xf
+
+D    Uninterruptible sleep (usually IO)    //深度睡眠
+R    Running or runnable (on run queue)    //执行
+S    Interruptible sleep (waiting for an event to complete)  //可中断睡眠
+T    Stopped, either by a job control signal or because it is being  //停止
+     traced.
+W    paging (not valid since the 2.6.xx kernel)  //无用
+X    dead (should never be seen)                 //进程挂掉
+Z    Defunct ("zombie") process, terminated but not reaped by its parent. //僵
+
+For BSD formats and when the stat keyword is used, additional characters
+may be displayed:
+<    high-priority (not nice to other users)  //高优先级 但是不优先
+N    low-priority (nice to other users)       //低优先级 但优先
+L    has pages locked into memory (for real-time and custom IO)  //页锁
+s    is a session leader				//进程组长
+l    is multi-threaded (using CLONE_THREAD, like NPTL pthreads do)  //多线程
++    is in the foreground process group	     //前台运行
+
+
+USER   用户名
+PID    process identify 进程的id号
+%CPU   该程序占用cpu的百分比
+%MEM   该程序占用的内存空间  总内存空间
+VSZ    virtual size 该程序占用的虚拟内存大小
+RSS    real size    该程序占用的真实内存大小
+TTY    是否控制终端  shell  ?不控制
+STAT   进程状态
+START  进程的开始时间
+TIME   进程执行时间
+COMMAND   执行该进程运行的执令
+
+
+PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+
+PR  优先级  20  ->  -20  越高优先级越低
+NI  nice  优先
+VIRT    虚拟内存
+RES     真实内存
+SHR     共享内存
+S       状态
+
+将程序在后台执行
+
+command   &
+
+jobs 查看后台程序
+
+如果何把后台程序掉到前台
+fg  将进入后台的最后一个程序调到前台
+fg  - 调后台带-号的进程
+fg  + 调后台带+号的进程
+fg  1  调后台进程id号为1的进程   （注意 id为后台jobs查看的id号）
+
+ctrl + z  将在终端上执行的进程停止到后台  可以通过fg将已经停止的后台程序调到前台
+
+
+pstree 以树的形式查看进程的关系图
+
+kill   杀死一个进程带id号
+
+kill -15   正常终止   进程id
+kill -9    强制杀死
+
+killall  名字
+
+将名字为aaa 跟 bbb的全部杀死
+
+killall  -15   aaa
+killall  -9    bbb
+
+

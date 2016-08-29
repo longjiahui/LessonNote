@@ -1,0 +1,21 @@
+
+21	16	*	*	*	touch /ABCDEF
+分钟   小时    天      月      周       命令
+
+文件名字都以xxx.cron
+
+添加一个计划任务
+
+crontab   xxx.cron
+
+
+crontab -l  查看本机的计划任务
+
+crontab -r  删除本机的当前计划任务
+
+开机自动添加计划任务
+
+开机执行脚本
+
+/etc/rc.local
+

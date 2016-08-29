@@ -1,0 +1,26 @@
+//ctags 建立方法
+//cd    /usr/include
+//ctags -R
+//vim   stdlib.h
+//找到size_t    按 ctrl + ]
+//# pri kind tag               文件
+//1 F   t    size_t            c++/4.4.4/ext/stdio_filebuf.h
+//             class:stdio_filebuf
+//             typedef std::size_t                               size_t;
+//2 F   t    size_t            c++/4.4.6/ext/stdio_filebuf.h
+//             class:stdio_filebuf
+//             typedef std::size_t                               size_t;
+//3 F   t    size_t            glob.h
+//             typedef __SIZE_TYPE__ size_t;
+//4 F   t    size_t            vmware-vix/vm_basic_types.h
+//             typedef uint32 size_t;
+//5 F   t    size_t            vmware-vix/vm_basic_types.h
+//             typedef uint64 size_t;
+//6 F   t    size_t            vmware-vix/vm_basic_types.h
+//             typedef uint32 size_t;
+//7 F   t    size_t            vmware-vix/vm_basic_typ
+//             typedef uint64 size_t;
+//Type number and <Enter> (empty cancels):   4   <== 写4  按Enter
+//跳转
+
+查找到想要的东西,进去就是ctrl + ]   退回上一层  ctrl + o

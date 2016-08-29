@@ -1,0 +1,30 @@
+
+[root@localhost homework]# vim /etc/exports
+[root@localhost homework]# service nfs restart
+Redirecting to /bin/systemctl restart  nfs.service
+[root@localhost homework]# uname -a
+Linux localhost.localdomain 3.10.0-327.el7.x86_64 #1 SMP Thu Nov 19 22:10:57 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+[root@localhost homework]# systemctl    restart  nfs.service 
+Display all 371 possibilities? (y or n)
+[root@localhost homework]# systemctl    restart  nfs.service 
+[root@localhost homework]# echo $?
+0
+[root@localhost homework]# showmount -e  192.168.4.233
+Export list for 192.168.4.233:
+/homework *
+[root@localhost homework]# mount -t  nfs  192.168.4.233:/homework  /mnt
+[root@localhost homework]# df -h
+文件系统                 容量  已用  可用 已用% 挂载点
+/dev/sda3                 14G  3.8G  9.5G   29% /
+devtmpfs                 736M     0  736M    0% /dev
+tmpfs                    750M  144K  750M    1% /dev/shm
+tmpfs                    750M  9.0M  742M    2% /run
+tmpfs                    750M     0  750M    0% /sys/fs/cgroup
+/dev/sda1                297M  144M  154M   49% /boot
+tmpfs                    150M  4.0K  150M    1% /run/user/42
+tmpfs                    150M   24K  150M    1% /run/user/0
+tmpfs                    750M   12K  750M    1% /tmp
+192.168.4.233:/homework   14G  3.8G  9.5G   29% /mnt
+[root@localhost homework]# umount /mnt/
+[root@localhost homework]# 
+

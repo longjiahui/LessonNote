@@ -1,0 +1,124 @@
+
+
+cat   查看一个文件
+cat   file
+
+cat -n  txt                 		//显示行数
+cat  -A txt				//显示所有
+cat   txt  |  grep  world		//管道查找
+head  txt				//查看文件前10行(默认)
+head -n 20 txt				//查看文件前20行
+head -n15 txt				//查看文件前15行
+head -c 10 txt				//查看文件前10字符
+tail  txt				//查看文件尾10行
+tail -n20 txt				//查看文件尾20行
+tail -c 100  txt			//查看文件尾100字符
+head -n3 txt | tail -n1			//第三行
+head -n4 txt | tail -n2			//第三行，第四行
+head -1 txt  &&  head -n3 txt | tail -n1//第一行，第三行
+
+less       more
+经常用	   不经常用
+
+man文档就是用了less模式查看
+
+wc 查看一个文件的行数，单词数，字节数
+
+wc -l  txt  //行数
+wc -c  txt  //字节数
+wc -w  txt  //单词
+  
+du   查看一个文件夹的大小
+
+
+du -csh  查看一个文件夹的总大小  -h  human readable
+du -h    相看文件夹下的所有的文件夹的大小列表
+
+
+
+	正则表达式
+	.     匹配任意一个字符
+	.*    匹配任意多个字符包括一个
+
+	^t    以t字符开头(行)
+	t$    以t结尾(行)
+
+	\<root   单词以root开头
+	root\>   单词以root结尾
+	\<root\> 查看root单词
+
+	a\{1,2\}   查找1到2个字符a  相连
+	a\{1,\}    查找1个以上的a
+
+	[abc]      查找a或者b或者c
+	[^abc]     排除只有abc组成的字符
+
+grep "d.g"  txt    		//单个字符
+grep "d..g"  txt
+grep "d.*g"  txt   		//任意一个
+grep "^t"  txt     		//开头
+grep "^t$"  txt    		//一行中只有一个字符
+grep "t$"  txt     		//结尾
+grep "\<tiger"  txt		//单词以tiger开头
+grep "tiger\>"  txt
+grep "\<tiger\>"  txt	        //查找单词tiger
+grep "l\{1,2\}"  txt		//1-2个l
+grep "l\{3,4\}"  txt
+grep "l\{2,\}"  txt		//连续2个以上
+grep "l\{3,\}"  txt
+grep "l\{0,2\}"  txt
+grep "l\{1,2\}"  txt
+grep "o\{4,\}b$" txt
+grep "\<hello\{4,\}b$" txt
+grep "[abc]" txt.txt		//a|b|c
+grep "[^abc]" txt.txt
+grep "[a-z]" txt.txt
+grep "[^a-z]" txt.txt
+grep "[a-z0-9]" txt.txt
+grep "[a-z0-9A-Z]" txt.txt
+
+grep -i "dog"  txt      //-i  忽略大小写 
+grep -i -v "dog"  txt   //-v  取反
+grep -A 2 "dog"  txt	//-A  向下2行
+grep -B 2 "dog"  txt    //-B  向上2行
+grep -C 2 "dog"  txt	//-C  上下各2行
+grep "[[:alnum:]]"  txt //数字或者字符
+grep "[[:digit:]]"  txt //数字
+grep "[[:alpha:]]"  txt //字符
+
+
+//查找文件
+find
+
+find test -empty   		//查找空文件
+find test -gid 0                //查看文件组id
+find test -uid 0		//用户id
+find test -perm 0644		//权限
+truncate -s 1M a		//将文件大小扩充到1M
+truncate -s 30G a
+find test -size +1M		//文件大小大于1M
+truncate   test/b  -s 20M
+find test -size +1M
+find test -size +1M  -size -10M //文件大小大于1M小于10M
+find  /dev/  -type  b		//文件类型为块设备
+find  /dev/  -type  c		//文件类型为字符设备
+find   /lib   -type l		//文件类型为链接文件
+find test -empty		//文件为空
+find test -empty -exec rm -rf {} \;	//找到文件为空并且删除
+find test -size +1M -size -10M		
+find test -size +1M -size -10M -exec cp {} / \;
+//找到文件大小大于1M且小于10M的文件拷到/目录
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+[base]
+name=Instructor Server Repository
+baseurl=ftp://192.168.4.254/pub/rhel6.3/dvd
+gpgcheck=0
+enabled=1
+

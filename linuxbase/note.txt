@@ -1,0 +1,1241 @@
+
+
+1.ls   list directory content  将一个目录下包含的所有文件列出来
+ls .   当前目录
+ls ..  上一层目录
+ls -l  以列表形式列出
+ls -a  列出所有文件 -all
+ls -h  有带单位  -human-readable
+ls -t  以时间顺序排列 -time
+ls -R  递归  列出所有目录下的所有信息包括子目录
+
+touch	
+1.如果文件不存在，创建文件
+2.如果文件存在，更新文件时间，不会改变文件内容
+
+mkdir   创建一个目录
+mkdir  directorys    创建单级目录  可多个
+mkdir  directory1/directory2  如果1不存在，则 -p 创建多级目录
+
+pwd    查看当前目录信息
+
+相对路径      以自己(当前的工作目录)出发
+绝对路径      以/目录出发
+
+cd     change working directory
+
+cd    到家目录
+cd  ~ 到家目录
+cd  - 到上一次跳转过来的目录(从哪来回哪去)
+cd  / 到根目录
+
+
+rm   remove files or directorys
+
+rm  -r  删除一个目录
+rm  -f  删除时不提示 强制删除
+
+
+cp  copy file or directory
+
+cp file1  file2  将file1拷到file2
+
+cp file1  directory  将文件拷到目录下
+
+cp file1 file2 directory3 file...n  directory  将文件或者目录拷到一个目录下但是必须保证最后一个是目录
+
+cp *.c   AAA   拷所有以.c结尾的文件到AAA目录下
+
+\cp     覆盖模式   不提示是否覆盖
+
+cp directory1  directory2 -r  如果directory2不存在 直接拷
+                              如果directory2存在，拷到directory2下一级目录下
+
+mv  move  剪切或者重命名
+mv file1 file2
+mv directory1 directory2  如果directory2 不存在 就重命名
+	                  如果directory2 存在 剪切到directory2目录下
+
+//通配符
+*  匹配所有
+?  匹配单个字符
+
+//*********************************************************
+
+关机指令
+shutdown
+halt
+halt -p -f   直接切电源
+init 0
+restart   重启
+reboot
+
+
+vim操作
+命令模式
+插入模式
+末行模式
+
+
+命令模式==>插入模式
+i	在当前光标前插入
+I	在当前光标所在的行的行首插入
+a	在当前光标后插入
+A	在当前光标所在的行的行尾插入
+s	删除当前光标下的字符并且从当前光标下插入
+S	删除当前光标所有行并进入插入模式
+o	在当前光标的下一行的行首插入
+O	在当前光标的上一行的行首插入
+
+插入模式 ==> 命令模式
+esc           退出键
+
+命令模式 ==> 末行模式
+:
+
+末行模式 ==> 命令模式
+backspace  退格键
+
+
+命令模式下:
+	
+	yy  复制当前行	
+	nyy  n代表行数   复制n行
+	p   将已经复制的文本粘贴当前光标的下一行
+	P   将已经复制的文本粘贴当前光标的上一行
+	dd  删除当前光标所在行
+	ndd  n代表行数   删除n行
+
+	gg   跳到首行
+	ngg  跳到n行
+	G    跳到文件最后一行
+
+	d + 上键  或 dk  删除当前光标所在的行及上一行
+	d + 下键  或 dj  删除当前光标所在的行及下一行
+	d + 左键  或 dh  删除当前光标前的一个字符
+	d + 右键  或 dl  删除当前光标的一个字符
+
+
+	u   回复上一个操作
+	ctrl + r  撤消上一次回复的操作
+
+	h j k l
+	h 向左
+	j 向下
+	k 向上
+	l 向右
+
+
+	dw  删除一个单词
+	w/W 跳一个单词 一直指向单词的开头
+	D   删除当前光标之后的所有字符 一行
+	dG  删除当前光标所在的行及本文件之后的所有行
+
+
+	#   查找当前光标下的该单词
+
+可视块操作
+块操作
+	//删除一个区域
+	ctrl + v
+	将目标区域拉黑(左右上下键)
+	d   删除所拉黑区域
+
+	//批量插入
+	ctrl + v
+	将需要插入的行拉黑(光标大小)
+	I  //进入插入模式  写需要添加的字符
+	esc  //退出并且补全所有行
+
+
+	//批量替换
+	ctrl + v
+	将需要替换的区域拉黑
+	r + 需要替换的字符
+
+打标   重要
+	ma    mb  mc  md ... mz  //打标
+	'a    'b  'c  'd ... 'z  //跳转到该标码下
+	
+	d'a  d'b  d'c  d'd ... d'z  //从当前光标下删除到该标码
+	''  跳回之前跳过来之前光标所在位置
+
+
+保存文件
+	:w     保存文件
+	:q     退出文件
+	:wq	保存并且退出
+	:q!	强制退出但是不保存
+	:wq!    强制保存并且退出
+	:x      保存退出
+	:X      加密码    输入密码两次  //去掉密码 只要输入密码为空
+	:e!     撤消所有操作回到原始位置
+	:4,10d  删除第4到第10行
+	:e  文件名   编辑一个文件 回来时可以 ctrl + o
+	:nohl   no high light 不显示高亮
+	:!ls
+	:!bash  操作其它事件，完之后ctrl + d 或者exit 回到编辑
+	:181,200w  abc.txt   将本文件中的181行到200行的内容保存到文件abc.txt下
+
+
+在编辑时将vim调到后台   ctrl + z  操作完毕之后 fg  将后台的vim调后前台
+
+//查找
+
+/world   从当前的光标下向下查找   
+n        next下一个 
+N        上一个
+
+?world   从当前光标下向上查找
+n        上一个
+N	 下一个
+
+//查找到之后替换
+:%s/abcde/hello         全文替换 但只是每一行的第一个出现
+:%s/llo/xyz/g           全文替换  替换所有
+:%s/llo/xyz/gc           全文替换  替换所有 但是会问
+:4,10s/llo/xyz/g       将第4到第10行下的所有的llo换成xyz
+
+//插入模式
+ctrl + p   /  ctrl + n  补全
+ctrl + 'u'  清除当前行
+
+//快捷键
+ctrl + shift + '+'   终端放大
+ctrl + '-'           终端放小
+F11                  全屏
+ctrl + shift + 'n'   创建一个新的终端
+ctrl + 'd'           关闭当前终端   alt + F4
+ctrl + shift + 't'   创建一个并列的终端
+alt + 数字           切换并列的终端
+ctrl + 'l'           清屏
+ctrl + 'u'           清除所写的字符
+ctrl + 'k'           删除当前光标到行尾的所有字符
+ctrl + 'w'           向前删除一个单词
+
+
+//网络配置
+
+//1.查看自己网卡是否有问题（坏）
+
+ping  127.0.0.1
+如果ping通则表示网卡硬件存大
+如果ping不通，证明网卡硬件坏了
+
+
+//2.查看网卡是否有插入网线
+[root@uplooking LinuxBase]# mii-tool  eth0
+eth0: negotiated 100baseTx-FD flow-control, link ok   //证明网线连接着网卡
+[root@uplooking LinuxBase]# mii-tool eth1
+eth1: no link                                         //证明网线没有接着网卡
+[root@uplooking LinuxBase]# mii-tool br0              //桥接网卡不支持
+SIOCGMIIPHY on 'br0' failed: Operation not supported
+
+//3.配置IP地址     配置当前网络地址
+1> 配置临时地址
+
+ifconfig  eth0   192.168.4.123     //配置临时地址
+如果电脑重启，或者是网络服务重启都会恢复之前的IP地址
+
+service network restart      //服务重启
+ifconfig eth0 down           //网闭网卡
+ifconfig eth0 up             //启动
+
+ifconfig eth0 down && ifconfig eth0 up
+
+2> 通过配置脚本配置本地IP地址     
+  1 DEVICE=eth0               //设备名字
+  2 BOOTPROTO=static          //网卡的协议  静态static none 动态 dhcp
+  3 HWADDR=F4:6D:04:7A:CC:2E  //MAC地址
+  4 NM_CONTROLLED=no          //XX
+  5 ONBOOT=yes                //是否要启动
+  6 TYPE=Ethernet             //XX
+  7 BRIDGE=br0                //XX
+ 
+//******************************************
+//xx 是你自己的ip号  2 -> 253
+DEVICE=eth0
+BOOTPROTO=static
+HWADDR=F4:6D:04:7A:CC:2E
+ONBOOT=YES
+IPADDR=192.168.4.xx    //IP地址
+NETMASK=255.255.255.0     //子网掩码
+GATEWAY=192.168.4.1       //网关
+DNS=114.114.114.114       //DNS解析
+
+//如果网络重启失败
+service NetworkManager stop
+chkconfig NetworkManager off
+
+serivce network restart
+检查自己IP 是否已经配置完毕
+ifconfig eth0  查看是否已经配置完成
+
+
+ping   192.168.4.254
+
+
+//制作虚拟网卡
+
+cd  /etc/sysconfig/network-scripts
+
+[root@localhost network-scripts]# ls
+ifcfg-eth0    ifdown-ippp    ifdown-tunnel  ifup-isdn    ifup-tunnel
+ifdown-ipv6    ifup           ifup-plip    ifup-wireless
+ifcfg-eth1    ifdown-isdn    ifup-aliases   ifup-plusb   init.ipv6-global
+ifcfg-lo      ifdown-post    ifup-bnep      ifup-post    net.hotplug
+ifdown        ifdown-ppp     ifup-eth       ifup-ppp     network-functions
+ifdown-bnep   ifdown-routes  ifup-ippp      ifup-routes
+network-functions-ipv6
+ifdown-eth    ifdown-sit     ifup-ipv6      ifup-sit
+
+cp  ifcfg-eth0  ifcfg-eth0:0
+
+vim  ifcfg-eth0:0
+//******************************
+DEVICE="eth0:0"      //改
+BOOTPROTO="static"
+HWADDR="F4:6D:04:8F:33:4E"  //不改
+ONBOOT="yes"
+IPADDR=172.16.3.123         //改
+NETMASK=255.255.255.0
+GATEWAY=172.16.3.1         
+
+//重启网络
+service network restart
+
+查看一下网络  ifconfig  查看是否有虚拟网卡
+
+ping  172.16.3.1   //如果ping不通 则换一个ip试试
+//如果可以ping通 
+
+设置域名解析
+vim  /etc/resolv.conf
+
+//*******************************************
+# Generated by NetworkManager
+nameserver 114.114.114.114                   //命名服务器
+
+# No nameservers found; try putting DNS servers into your
+# ifcfg files in /etc/sysconfig/network-scripts like so:
+#
+# DNS1=xxx.xxx.xxx.xxx
+# DNS2=xxx.xxx.xxx.xxx
+# DOMAIN=lab.foo.com bar.foo.com
+
+查看命名服务器是否存在
+
+[root@localhost network-scripts]# nslookup
+> server
+Default server: 114.114.114.114
+//如果查看到服务器ip就已经有命名服务器
+Address: 114.114.114.114#53
+> exit
+[root@localhost network-scripts]# 
+
+
+//尝试解析域名空间
+
+[root@localhost network-scripts]# nslookup  www.baidu.com
+Server:		114.114.114.114
+Address:	114.114.114.114#53
+
+Non-authoritative answer:
+www.baidu.com	canonical name = www.a.shifen.com.
+Name:	www.a.shifen.com
+Address: 14.215.177.37
+Name:	www.a.shifen.com
+Address: 14.215.177.38
+
+[root@localhost network-scripts]#   //查看到该信息，证明解析成功
+
+查看路由表
+[root@localhost network-scripts]# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+172.16.3.0      0.0.0.0         255.255.255.0   U     0      0        0 eth0
+192.168.44.0    0.0.0.0         255.255.255.0   U     0      0        0 eth0
+192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
+169.254.0.0     0.0.0.0         255.255.0.0     U     1002   0        0 eth0
+0.0.0.0         172.16.3.1      0.0.0.0         UG    0      0        0 eth0
+[root@localhost network-scripts]#   //只有一个网关 且网关为172.16.3.1
+
+
+//尝试上网
+ping  www.baidu.com
+//ping通   打开firefox上网
+
+
+主机名
+主机名查看   
+1. hostname
+2. echo $HOSTNAME
+
+env 查看环境变量
+
+echo $OLDPWD  查看pwd路径
+
+
+ctrl + Alt + F1 图形界面
+ctrl + Alt + F2 - F5 字符界面
+
+//开机运行级别
+
+0    关机
+1    单用户     //默认进去就是超级用户权限root
+2    多用户模式，无服务，无网络
+3    多用户模式，有服务，有网络
+4    保留
+5    图形界面   x11
+6    重启
+
+配置脚本    /etc/inittab             //开机运行级别配置脚本
+
+ 17 # Default runlevel. The runlevels used are:
+ 18 #   0 - halt (Do NOT set initdefault to this)
+ 19 #   1 - Single user mode
+ 20 #   2 - Multiuser, without NFS (The same as 3, if you do not have
+networking)
+ 21 #   3 - Full multiuser mode
+ 22 #   4 - unused
+ 23 #   5 - X11
+ 24 #   6 - reboot (Do NOT set initdefault to this)
+ 25 # 
+ 26 id:5:initdefault:      //默认的开机运行级别
+
+//配置密码脚本
+/etc/passwd       //用户级信息
+/etc/shadow       //存放密码  md5加密之后的字符串
+
+//更改用户密码
+passwd  root
+//输入密码之后看到具体的密码 输两次
+
+
+
+系统目录架构
+
+/bin              系统相关普通用户命令
+/sbin             系统相关超级用户命令
+/usr/bin          普通用户命令
+/usr/sbin         超级用户命令
+/usr/local/bin    第三方软件普通用户命令
+/usr/local/sbin   第三方软件超级用户命令
+
+/boot		  启动目录  grub配置脚本 /boot/grub/grub.conf
+
+/root		  超级用户家目录
+/home             普通用户家目录
+
+/media            自动挂载外设目录
+/mnt              手动挂载外设目录
+/misc             自动挂载内部设备  硬盘
+
+/dev		  设备目录
+
+/lib              内核驱动模块目录
+/lib64            可执行库文件目录  动态库 xxx.so  静态库 xxx.a
+
+/proc		  系统硬件参数目录  不存在真实的物理硬盘
+
+/opt		  第三方软件安装目录
+/usr              用户相关第三方软件安装目录
+/sys		  系统相关第三方软件安装目录
+
+/var		  系统服务目录  /var/ftp/pub
+
+/tmp		  缓存区间  （杂货间）过段时间会自动清除
+
+/selinux	  security linux 
+
+/lost+found       ext3 ext4磁盘格式自动生成目录
+
+/net		  网络相关
+
+文件权限
+r  可读
+w  可写
+x  可执行
+
+-          rwx              r-x           r-x
+	   111              101           101
+	    7                5             5
+
+文件类型   所属用户权限   所属组权限  其它权限
+
+	    character  block   socket
+		c       b        s
+设备分类    字符设备  块设备  网络设备
+
+
+文件类型
+	-	normal file	普通文件    黑色
+				可执行普通文件为绿色
+		
+	d	directory	目录        蓝色
+				满权限目录背景为绿色
+
+	c	character       字符设备    黄色 
+
+	b	block		块设备      黄色
+	s	socket		网络设备    紫红
+	
+	l	link		链接文件    亮蓝
+	p	pipe		管道文件    土黄   //mkfifo
+
+
+chmod   
+change mode   改变一个文件或者文件夹的权限
+
+0777  八进制
+0x777 十六进制    //C 有用
+777   十进制
+
+0b0000      不可用
+4'b0011
+
+u  所属用户   g  所属组   o 其它  a 所有
+
+chmod 0777  xxx.txt   //改变文件权限
+chmod a+x   xxx.txt   //将所有权限加上可执行权限
+chmod a-x   xxx.txt   //取消可执行权限
+chmod a-w   xxx.txt
+chmod o-w   a
+chmod 0777  sh  -R    // -R 将目录下的所有目录的子文件权限改为0777
+
+创建文件的最大权限   0666
+创建文件夹的最大权限为  0777
+
+查看umask
+umask
+改变umask
+umask 0022
+
+umask 
+创建文件或者创建文件夹权限   mode & (~umask)
+
+touch aaa  ==>  0666 & (~0022) => 0644
+mkdir bbb  ==>  0777 & (~0022) => 0755
+
+
+硬链接     软链接
+
+创建软链接
+可以跨分区，但是最好使用绝对路径
+ln -s  file1  file2       file2-->file1
+
+创建硬链接
+不可以跨分区，但是路径随意引用
+ln -d  file1  file2
+
+//配置网络yum源
+[root@uplooking LinuxBase]# ls  dvd.repo 
+dvd.repo
+[root@uplooking LinuxBase]# rm  -rf   /etc/yum.repos.d/*     
+[root@uplooking LinuxBase]# 
+[root@uplooking LinuxBase]# cp dvd.repo   /root/Desktop/
+[root@uplooking LinuxBase]# 
+[root@uplooking LinuxBase]# cp  /root/Desktop/dvd.repo    /etc/yum.repos.d/
+cp：是否覆盖"/etc/yum.repos.d/dvd.repo"？ y
+[root@uplooking LinuxBase]# 
+[root@uplooking LinuxBase]# yum clean all
+[root@uplooking LinuxBase]# 
+[root@uplooking LinuxBase]# yum list
+[root@uplooking LinuxBase]# 
+[root@uplooking LinuxBase]# yum -y install xz
+[root@uplooking LinuxBase]# ^C
+[root@uplooking LinuxBase]# xz
+xz: Compressed data not written to a terminal unless `--force' is used.
+xz: Try `xz --help' for more information.
+[root@uplooking LinuxBase]# 
+
+
+//压缩文件
+zip  bzip2  gzip  xz  tar
+
+确定文件格式
+file   xxx     //查看文件压缩格式
+
+1.zip
+压缩   zip  -r  xxx.zip   xxx   ==> xxx.zip
+解压   unzip  xxx.zip       //解压后xxx.zip存在
+
+2.gzip
+
+压缩   gzip  xxx                ==> xxx.gz
+解压   gunzip  xxx.gz           ==> xxx   解压后xxx.gz不存在
+
+3.bzip2
+
+压缩   bzip2  xxx               ==> xxx.bz2
+解压   bunzip2  xxx.bz2         ==> xxx  解压后xxx.bz2不存在
+
+
+4.xz
+
+压缩   xz    xxx                ==> xxx.xz
+解压   unxz  xxx.xz             ==> xxx
+       xz  -d  xxx.xz           ==> xxx  解压后xxx.xz不存在
+
+5.tar  
+
+c   create/creat  创建
+v   view    查看被压缩的文件或者解压的文件
+f   file    文件  后面跟文件名
+x   uncompress  解压
+
+压缩   tar -cvf  xxx.tar   xxx    ==> xxx.tar
+解压   tar -xvf  xxx.tar          ==> xxx
+
+6.tar.gz
+
+tar -zcvf   xxx.tar.gz    xxx     ==> xxx.tar.gz
+tar -xzvf   xxx.tar.gz            ==> xxx
+
+7.tar.bz2  
+
+tar -jcvf   xxx.tar.bz2   xxx    ==> xxx.tar.bz2
+tar -xjvf   xxx.tar.bz2          ==> xxx
+
+8.tar.xz
+
+tar -cvf  xxx.tar  xxx
+xz  xxx.tar              ==>  xxx.tar.xz
+
+unxz  xxx.tar.xz
+tar -xvf  xxx.tar
+
+//安装源码包
+
+ls  ntfs-3g-2009.4.4.tgz
+
+
+tar -xvf  ntfs-3g-2009.4.4.tgz
+
+cd  ntfs-3g-2009.4.4
+
+1.配置源码包环境  检查环境是否可以安装该源码包 检查依赖关系
+./configure   
+
+如果失败 找不到gcc
+yum -y install gcc*      //成立的条件需要先做上面的配置网络yum源
+
+echo $?   看返回值是否为0  如果不为0证明环境不适合安装该源码包 
+
+2.编译源码
+make
+
+如果make失败 找不到make   
+yum -y install make*    //成立的条件需要先做上面的配置网络yum源
+
+echo $?
+
+3.安装
+make install
+
+echo $?
+
+
+//重定向
+属性: 如果目标文件不存在，会创建该目标文件    
+如果目标文件存在，会清空该目标文件并将有效信息输入到该文件中
+
+0             1             2
+标准输入    标准输出     标准出错
+
+默认情况下
+
+标准输出重定向
+将ls程序的标准输出 重定向到 abc文件下
+ls   >    abc      //==>    ls  1>  abc
+
+标准出错重定向
+
+abc 2>   abc      //会将出错信息重定向到abc文件下
+
+
+//标准输出及标准出错重定向一起
+
+(ls  &&  abc)  &>  abc
+
+
+追加
+属性:
+如果目标文件不存在，就会创建该目标文件，但是不会清空目标文件，只会追加到文件尾
+
+ls  >>  abc
+
+abc 2>>  abc
+
+(ls && abc)  &>>  abc
+
+
+//时间配置
+查看时间
+date
+date +%F
+date +%a/A/b/B...      man  date
+
+//设置时间
+
+date -s  2016-07-14
+date -s  14:05
+
+clock -w   //更新时钟
+
+//查看历史
+history
+
+保存
+history -w    //保存文件   ~/.bash_history
+
+清除历史
+history -c
+
+
+查看命令有哪些章节描述
+whatis  ls
+
+查看命令可执行文件存放位置及man文档存放位置
+whereis  ls
+
+man文档
+
+1    系统命令   ls  cd
+2    系统调用函数
+3    系统调用库函数
+4    游戏
+5    文件描述
+6
+7    总述
+8    内核
+
+//分区
+
+挂载ntfs磁盘
+
+首先通过  fdisk -l  确定哪个分区
+Disk /dev/sdb: 15.5 GB, 15538716672 bytes
+68 heads, 4 sectors/track, 111577 cylinders
+Units = cylinders of 272 * 512 = 139264 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x0992902d
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              30      111578    15170496    7  HPFS/NTFS
+
+==>  确定磁盘为   /dev/sdb1
+
+1.mount -t ntfs-3g  /dev/sdb1   /mnt
+
+2.mount.ntfs-3g     /dev/sdb1   /mnt
+
+3.ntfs-3g           /dev/sdb1   /mnt
+
+当操作完毕之后就得解挂
+umount  /mnt
+
+
+挂载fat32 磁盘
+
+fdisk -l 确定磁盘
+Disk /dev/sdc: 31.0 GB, 30979129344 bytes
+255 heads, 63 sectors/track, 3766 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xcad4ebea
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc4   *           1        3767    30252928    c  W95 FAT32 (LBA)
+
+==>   /dev/sdc4
+
+
+
+D盘先解挂U盘
+
+df -h
+umount /media/*
+
+
+//D盘  D格
+[root@uplooking LinuxBase]#fdisk -l
+
+Disk /dev/sdc: 31.0 GB, 30979129344 bytes
+255 heads, 63 sectors/track, 3766 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xcad4ebea
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc4   *           1        3767    30252928    c  W95 FAT32 (LBA)
+[root@uplooking LinuxBase]# 
+[root@uplooking LinuxBase]# dd  if=/dev/zero   of=/dev/sdc  bs=1024
+count=1024
+记录了1024+0 的读入
+记录了1024+0 的写出
+1048576字节(1.0 MB)已复制，0.193254 秒，5.4 MB/秒
+
+[root@uplooking LinuxBase]#fdisk -l
+Disk /dev/sdc: 31.0 GB, 30979129344 bytes
+64 heads, 32 sectors/track, 29544 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+已经没有分区表  
+
+
+//分区    确定设置为  /dev/sdc
+
+[root@uplooking LinuxBase]# fdisk    /dev/sdc
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF
+disklabel
+Building a new DOS disklabel with disk identifier 0x9549b148.
+Changes will remain in memory only, until you decide to write them.
+After that, of course, the previous content won't be recoverable.
+
+Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+
+WARNING: DOS-compatible mode is deprecated. It's strongly recommended to
+         switch off the mode (command 'c') and change display units to
+         sectors (command 'u').
+
+Command (m for help): m
+Command action
+   a   toggle a bootable flag      //设置活动分区
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition          //删除一个分区
+   l   list known partition types  //查看分区类型
+   m   print this menu             //打印帮助列表
+   n   add a new partition	   //新建一个分区
+   o   create a new empty DOS partition table
+   p   print the partition table   //打印分区表
+   q   quit without saving changes //退出但是不保存
+   s   create a new empty Sun disklabel
+   t   change a partition's system id  //改变分区表类型
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and exit    //保存并且退出
+   x   extra functionality (experts only)
+
+Command (m for help): n
+Command action
+   e   extended                 //新建扩展分区
+   p   primary partition (1-4)  //新建主分区
+p
+Partition number (1-4): 1       //从第1个主分区开始分区
+First cylinder (1-29544, default 1):    //开始分配扇区
+Using default value 1
+Last cylinder, +cylinders or +size{K,M,G} (1-29544, default 29544): +2G
+
+Command (m for help): p
+
+Disk /dev/sdc: 31.0 GB, 30979129344 bytes
+64 heads, 32 sectors/track, 29544 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x9549b148
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1               1        2049     2098160   83  Linux
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 2
+First cylinder (2050-29544, default 2050): 
+Using default value 2050
+Last cylinder, +cylinders or +size{K,M,G} (2050-29544, default 29544): +4G
+
+Command (m for help): p
+
+Disk /dev/sdc: 31.0 GB, 30979129344 bytes
+64 heads, 32 sectors/track, 29544 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x9549b148
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1               1        2049     2098160   83  Linux
+/dev/sdc2            2050        6146     4195328   83  Linux
+
+Command (m for help): t           //改变分区类型
+Partition number (1-4): 1
+Hex code (type L to list codes): L
+
+ 0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris        
+ 1  FAT12           39  Plan 9          82  Linux swap / So c1  DRDOS/sec
+(FAT-
+ 2  XENIX root      3c  PartitionMagic  83  Linux           c4  DRDOS/sec
+(FAT-
+ 3  XENIX usr       40  Venix 80286     84  OS/2 hidden C:  c6  DRDOS/sec
+(FAT-
+ 4  FAT16 <32M      41  PPC PReP Boot   85  Linux extended  c7  Syrinx         
+ 5  Extended        42  SFS             86  NTFS volume set da  Non-FS data    
+ 6  FAT16           4d  QNX4.x          87  NTFS volume set db  CP/M / CTOS /
+.
+ 7  HPFS/NTFS       4e  QNX4.x 2nd part 88  Linux plaintext de  Dell Utility   
+ 8  AIX             4f  QNX4.x 3rd part 8e  Linux LVM       df  BootIt         
+ 9  AIX bootable    50  OnTrack DM      93  Amoeba          e1  DOS access     
+ a  OS/2 Boot Manag 51  OnTrack DM6 Aux 94  Amoeba BBT      e3  DOS R/O        
+ b  W95 FAT32       52  CP/M            9f  BSD/OS          e4  SpeedStor      
+ c  W95 FAT32 (LBA) 53  OnTrack DM6 Aux a0  IBM Thinkpad hi eb  BeOS fs        
+ e  W95 FAT16 (LBA) 54  OnTrackDM6      a5  FreeBSD         ee  GPT            
+ f  W95 Ext'd (LBA) 55  EZ-Drive        a6  OpenBSD         ef  EFI
+(FAT-12/16/
+10  OPUS            56  Golden Bow      a7  NeXTSTEP        f0  Linux/PA-RISC
+b
+11  Hidden FAT12    5c  Priam Edisk     a8  Darwin UFS      f1  SpeedStor      
+12  Compaq diagnost 61  SpeedStor       a9  NetBSD          f4  SpeedStor      
+14  Hidden FAT16 <3 63  GNU HURD or Sys ab  Darwin boot     f2  DOS secondary  
+16  Hidden FAT16    64  Novell Netware  af  HFS / HFS+      fb  VMware VMFS    
+17  Hidden HPFS/NTF 65  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE 
+18  AST SmartSleep  70  DiskSecure Mult b8  BSDI swap       fd  Linux raid
+auto
+1b  Hidden W95 FAT3 75  PC/IX           bb  Boot Wizard hid fe  LANstep        
+1c  Hidden W95 FAT3 80  Old Minix       be  Solaris boot    ff  BBT            
+1e  Hidden W95 FAT1
+Hex code (type L to list codes): c
+Changed system type of partition 1 to c (W95 FAT32 (LBA))
+
+Command (m for help): p
+
+Disk /dev/sdc: 31.0 GB, 30979129344 bytes
+64 heads, 32 sectors/track, 29544 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x9549b148
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1               1        2049     2098160    c  W95 FAT32 (LBA)
+/dev/sdc2            2050        6146     4195328   83  Linux
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+
+WARNING: If you have created or modified any DOS 6.x
+partitions, please see the fdisk manual page for additional
+information.
+Syncing disks.
+
+//****************************************************************
+以上为分区
+
+格式化
+Disk /dev/sdc: 31.0 GB, 30979129344 bytes
+64 heads, 32 sectors/track, 29544 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x9549b148
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1               1        2049     2098160    c  W95 FAT32 (LBA)
+/dev/sdc2            2050        6146     4195328   83  Linux
+[root@uplooking LinuxBase]# mkfs.vfat   /dev/sdc1
+mkfs.vfat 3.0.9 (31 Jan 2010)
+[root@uplooking LinuxBase]# mkfs.ext3  /dev/sdc2
+mke2fs 1.41.12 (17-May-2010)
+警告: 256 块未使用.
+
+文件系统标签=
+操作系统:Linux
+块大小=4096 (log=2)
+分块大小=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+262656 inodes, 1048576 blocks
+52441 blocks (5.00%) reserved for the super user
+第一个数据块=0
+Maximum filesystem blocks=1073741824
+32 block groups
+32768 blocks per group, 32768 fragments per group
+8208 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736
+
+正在写入inode表: 完成                            
+Creating journal (32768 blocks): 完成
+Writing superblocks and filesystem accounting information: 完成
+
+This filesystem will be automatically checked every 24 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+
+//格式化完毕
+
+
+ftp服务   file transport protocol
+
+yum -y install vsftpd
+
+service vsftpd restart   //重启ftp服务
+
+chkconfig vsftpd on      //形机自动启动ftp服务
+
+如果打不开firefox
+
+yum -y install firefox   //安装firefox
+
+firefox                  //打开firefox
+
+//在firefox的地址栏下输入
+ftp://192.168.4.xx       //xx为自己的IP 查看是否已经安装完ftp
+			 //如果能看到pub目录，说明该服务已经安装完毕
+ftp的发布目录在  /var/ftp/pub   默认发布目录
+
+
+获取主机192.168.4.254的ftp文件
+1.在桌面下的 位置 -> 连接到服务器 -> 输入主机ip
+
+2.打开firefox 地址栏输入  ftp://192.168.4.254  在网页下获取
+
+3.yum -y install lftp
+
+lftp  192.168.4.254
+-> get  file  -o  /root/Desktop   //文件
+-> mirror  directory   /root/Desktop  //目录
+-> exit   //退出
+
+
+//nfs  
+
+[root@uplooking LinuxBase]# vim   /etc/exports      //发布目录
+[root@uplooking LinuxBase]# mkdir    /homework
+[root@uplooking LinuxBase]# echo "hello world"  >  /homework/xxxx
+[root@uplooking LinuxBase]# 
+[root@uplooking LinuxBase]# vim  /etc/exports 
+/homework     *(rw)
+保存退出
+[root@uplooking LinuxBase]# service nfs restart    //服务重启
+[root@uplooking LinuxBase]# 
+[root@uplooking LinuxBase]# chkconfig  nfs  on     //开机自动启动
+主机发布nfs目录完成  检测nfs目录是否已经发布出去
+
+[root@uplooking LinuxBase]# showmount -e  192.168.4.254
+Export list for 192.168.4.254:
+/var/ftp/pub/      *(rw)     //r  可读   w 可写
+
+如果可以看到发布的目录 则已经发布成功   
+检测是否可以挂载  
+
+[root@uplooking LinuxBase]# mount -t nfs  192.168.4.xx:/homework  /mnt
+
+[root@uplooking LinuxBase]# df  -h   //查看是否挂载成功  
+
+192.168.4.254:/homework
+                      181G   56G  116G  33% /mnt
+
+[root@uplooking LinuxBase]# ls  /mnt   //查看是否已经将主机目录成功挂载
+
+操作完毕就必须要解挂掉
+umount  /mnt
+
+df -h  查一下是否已经解挂
+
+
+
+yum源的搭建
+
+1.本地yum源搭建
+
+需求:    当前电脑系统所对应的ISO镜像文件
+
+mkdir   /var/ftp/pub/rhel6.3/iso/   -p
+将镜像文件拷到该目录下
+rhel-server-6.3-x86_64-dvd.iso
+
+/var/ftp/pub/rhel6.3/iso/rhel-server-6.3-x86_64-dvd.iso
+
+
+1.将镜像文件挂载出来
+
+mount -o loop   /var/ftp/pub/rhel6.3/iso/rhel-server-6.3-x86_64-dvd.iso   /mnt
+
+df -h 确认是否已经挂载
+
+2.更改配置脚本
+vim    /etc/yum.repos.d/dvd.repo
+
+[basebase]
+name=Instructor Server Repository
+baseurl=file:///mnt
+gpgcheck=0
+enabled=1
+
+保存退出
+
+3.更新列表
+yum clean all
+yum list
+
+
+4.安装yum包
+yum -y install zlib*
+yum -y watchdog
+
+
+yum -y groupinstall   chinese-support   //安装中文支持
+
+安装中文支持
+注消 输入用户名之后选择汉语  输入密码登录
+
+5.搜索安装包
+yum search  zlib
+
+6.删除安装包
+yum -y remove  zlib
+
+如果电脑重启，就得重新挂载一遍，这种方法不方便
+
+7.固定本地yum源
+mkdir   /var/ftp/pub/rhel6.3/dvd
+
+\cp  /mnt/*    /var/ftp/pub/rhel6.3/dvd/   -r
+
+umount /mnt	
+
+更改配置文件
+
+[basebase]
+name=Instructor Server Repository
+baseurl=file:///var/ftp/pub/rhel6.3/dvd/
+gpgcheck=0
+enabled=1
+
+
+yum clean all
+yum list
+
+本地yum源配置完毕
+
+
+2.网络yum源
+
+1>  ftp  yum 源
+
+主机发布yum源
+/***************************************
+首先要将yum源的目录发布/var/ftp/pub下
+
+/var/ftp/pub/rhel6.3/dvd/     //我们的目录
+
+mount  -o loop  /var/ftp/pub/rhel6.3/iso/rhel-server-6.3-x86_64-dvd.iso   /mnt
+
+\cp /mnt/*   /var/ftp/pub/rhel6.3/dvd/   -r
+
+service vsftpd restart
+
+chkconfig  vsftpd on
+
+客户端如何用ftp的yum源
+
+firefox
+
+输入地址  ftp://192.168.4.xxx
+找到yum源所在的目录 然后将地址栏下的地址复制到配置文件
+
+[basebase]
+name=Instructor Server Repository
+baseurl=ftp://192.168.4.36/pub/rhel6.3/dvd/
+gpgcheck=0
+enabled=1
+
+yum clean all
+
+yum list
+
+yum -y install  xxx
+
+2>  nfs  yum 源
+
+//******************************************
+主机发布nfs的yum源   192.168.4.xx
+
+vim  /etc/exports
+
+/var/ftp/pub/rhel6.3/dvd/   *(rw)
+
+service nfs restart
+
+chkconfig nfs on
+
+主机发布完毕
+
+//*****************************************
+客户端
+
+showmount -e  192.168.4.xx
+
+找到主机发布yum源的目录
+
+[root@uplooking LinuxBase]# showmount -e 192.168.4.254
+Export list for 192.168.4.254:
+/var/ftp/pub/rhel6.3/dvd *
+/homework                *
+
+
+挂载
+
+mount -t nfs  192.168.4.254:/var/ftp/pub/rhel6.3/dvd  /mnt
+
+配置脚本
+vim /etc/yum.repos.d/dvd.repo
+
+[basebase]
+name=Instructor Server Repository
+baseurl=file:///mnt
+gpgcheck=0
+enabled=1
+
+
+yum clean all
+yum list
+
+
+安装完毕之后
+
+umount /mnt
+
+
+
+ssh 服务   远程终端
+
+ssh   192.168.4.xx
+
+输入密码
+
+关闭ssh 服务
+service  sshd stop
+
+重启
+service sshd restart
+
+scp 远程copy需要sshd服务的支持
+
+[root@uplooking LinuxBase]# scp   centos7_nfs.txt    192.168.4.15:/
+root@192.168.4.15's password: 
+centos7_nfs.txt                                         100% 1396     1.4KB/s
+00:00    
+[root@uplooking LinuxBase]# 
+
+
+查看电脑是否被别的用户登录
+last
+
+
+查看内核日志
+cat   /var/log/message
+
+
+

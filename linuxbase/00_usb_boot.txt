@@ -1,0 +1,78 @@
+USB 引导
+
+方式：
+
+1.使用grub来引导Linux安装; ＊
+2.使用syslinux来引导Linux安装。
+
+在windows系统下面，可以使用UltraISO软件可以快速的制作出一个usb的安装介质。
+
+
+1. grub usb boot
+
+1.1. 在u盘（移动硬盘）上安装grub （需要u盘支持mbr）;
+1.2. 提取安装镜像ISO中的安装内核和初始化内存磁盘文件到U盘目录;
+1.3. 提取ISO中images/install.img到u盘目录;
+1.4. 复制需要安装的系统版本对应的iso镜像到Ｕ盘;
+1.5. 创建grub的引导配置文件grub.conf。
+
+1.1. 
+
+[root@365linux ~]# df -h -T |grep media
+/dev/sdb4           vfat     7.4G  4.0K  7.4G   1% /media/New Volume
+
+[root@365linux ~]# umount /media/New\ Volume/
+[root@365linux ~]# mount /dev/sdb4 /mnt
+
+[root@365linux ~]# grub-install --root-directory=/mnt --no-floppy /dev/sdb
+
+Probing devices to guess BIOS drives. This may take a long time.
+Installation finished. No error reported.
+This is the contents of the device map /mnt/boot/grub/device.map.
+Check if this is correct or not. If any of the lines is incorrect,
+fix it and re-run the script `grub-install'.
+
+(hd0)	/dev/sda
+(hd1)	/dev/sdb
+
+[root@365linux ~]# ls /mnt/boot/grub/
+device.map     fat_stage1_5  iso9660_stage1_5  minix_stage1_5     stage1  ufs2_stage1_5    xfs_stage1_5
+e2fs_stage1_5  ffs_stage1_5  jfs_stage1_5      reiserfs_stage1_5  stage2  vstafs_stage1_5
+
+
+1.2.
+[root@365linux ~]# cp /var/ftp/source/rhel6.5_x64/isolinux/vmlinuz  /mnt/rhel6.5_x64/
+[root@365linux ~]# cp /var/ftp/source/rhel6.5_x64/isolinux/initrd.img /mnt/rhel6.5_x64/
+
+1.3.
+[root@365linux ~]# cp -R /var/ftp/source/rhel6.5_x64/images /mnt/rhel6.5_x64/
+
+1.4.
+[root@365linux ~]# cp /var/lib/libvirt/images/rhel-server-6.5-x86_64-dvd.iso  /mnt/rhel6.5_x64/
+
+1.5.
+[root@365linux ~]# vim /mnt/boot/grub/grub.conf
+default=0
+timeout=30
+#splashimage=(hd0,0)/grub/splash.xpm.gz
+#hiddenmenu
+title Install RHEL6.5_x64
+    # root (hd0,3)  可选
+    kernel  /rhel6.5_x64/vmlinuz
+    initrd  /rhel6.5_x64/initrd.img
+
+1.6. 测试安装：
+a. 机器BIOS选择从usb启动;
+b. 安装介质选择“hard driver”;
+c. 安装源选择“/dev/sda4”; (根据u盘的分区确定，测试U盘原来在系统里看起来是/dev/sdb4, 换作u盘引导后，u盘是第一设备，所以是sda4)。
+d. 安装镜像install.img指定路径为/rhel6.5_x64。
+
+
+1.7. u盘安装也可以使用ks.cfg
+问题：在u盘上的ks.cfg文件，内核参数怎么引用 ks=?
+
+1.8. 方式2：syslinux
+扩展
+
+1.9. 如何在usb上引导安装不同版本的linux系统？
+
