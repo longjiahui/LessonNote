@@ -1,0 +1,162 @@
+
+文件: linux系统上一切皆文件. 硬件在系统驱动好后也会有一个或多个文件与之对应,这些文件叫设备文件
+. 设备文件是用于应用程序通过操作设备文件来调用相应的驱动代码，使用硬件的功能.
+
+c:字符设备文件
+b:块设备文件
+
+linux系统不管什么类型文件,都是共用一套接口(open, read, write, close, ioctl...);
+
+strace命令： 查看一个程序里调用到哪些系统调用的api
+
+文件操作接口:
+	C:  fopen   fread   fwrite   fclose   fseek
+    linux:  open    read    write    close    lseek
+
+	sys_api <---    c_api  <---  user_api
+
+c语言里的文件操作函数最终也需调用系统提供的文件操作函数.
+c语言的文件操作函数无法操作设备文件.
+
+当系统创建进程时，已经分配了0(stdin), 1(stdout), 2(stderr)号文件描述符(相对于win系统,叫句柄handler)，分别对应标准输入，标准输出，标准错误输出
+	write(2, ....);
+	write(1, ...);
+	read(0, ...);
+
+文件描述符是属于一个进程的资源(一个进程默认只能有1024个文件描述符). 每个文件描述符都记录有对文件操作位置的偏移.
+
+1. open
+	int creat(const char *pathname, mode_t mode);
+	int open(const char *pathname, int flags);
+	int open(const char *pathname, int flags, mode_t mode);
+	函数返回一个非负的整数(文件描述符)，从3开始递增
+	pathname指包含路径的文件名
+	flags: 必须包含O_RDONLY, O_WRONLY, O_RDWR中的某一个
+	addtional flags:
+	O_CREAT, 如果指定的文件不存在，则创建此文件,
+mode用来指创建出来的文件权限, 0777
+		
+	O_TRUNC, 清空所打开文件的内容
+	O_APPEND, 打开文件时，文件的offse则移到文件尾
+
+	O_EXCL, 必须和O_CREAT一起使用，如果指定的文件已存出，则open失败			
+	O_NONBLOCK, 非堵塞方式打开。不指定时，打开设备文件时默认为堵塞方式，当read时，没有数据返回时，进程会进入睡眠直到有数据为止
+
+	
+
+2. close
+	close(fd); //因为每个进程能拥有文件描述符数是有限的, 用完后就关闭
+
+3. read
+	ssize_t read(int fd, void *buf, size_t count);
+	函数读成功的话， 返回读了多少个字节的数
+	返回-1错误， 0表示读到文件尾了
+	
+	void *buf指读的数据放到哪里的地址, count指读多少字节
+
+4. write
+	 ssize_t  write(int  fd,  const void *buf, size_t
+       count);
+	
+	buf指从哪里的地址上取数据写到文件里去，count指buf的长度
+
+@@@@@ read/write 操作都会影响文件的offset@@@@@@@@@
+
+用c的文件操作函数与linux系统的函数作比较
+
+ fwrite,   write,  每次写一个字节, 共写10M, 看哪个函数执行得快
+　　c语言的快(最终也是调用write,每次写4k),  系统的慢(调用write, 每次写1字节)
+
+ fwrite,   write,  每次写1M字节,   共写10M, 看哪个函数执行得快
+
+ fwrite函数执行,它会等到要写的数据缓存达到一定的量后,再调用write函数. 这也就为什么说c的文件操作函数是有缓冲的原因.
+//////
+linux系统里分： usr工作模式, sys工作模式. 分模式模式最主要是为了安全，一个进程挂掉不会影响其它进程
+	usr工作模式是：用户进程执行时，CPU处在的工作模式.
+	sys工作模式是：用户调用系统函数时，CPU处在的工作模式
+	
+ 调用write的函数开销比较大. cpu会分工作模式, 应用程序工作在usr模式下, 系统功能及函数工作在svc模式. 应用程序调用write函数,cpu需要从usr工作模式切换到svc模式, write函数执行完后再切换回到usr模式下执行, 频繁的切换也会带来开销.
+//////
+
+//////////////////////////////////////////////////////
+u盘的设备文件,  /dev/sdb 表示整个u盘, /dev/sdb1表示u盘的分区
+
+////// 大文件操作函数
+#define _LARGEFILE64_SOURCE
+#define _FILE_OFFSET_BITS 64
+
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+
+off64_t lseek64(int fd, off64_t offset, int whence);
+
+///////////////
+
+从标准输入获取数据可以: read(0, ...)
+标准输出write(1, ....)
+标准错误输出write(2, ...)
+
+//默认情况下,标准输入的文件描述符是堵塞方式操作的
+
+5. fcntl  修改已打开的文描述符的状态标志
+	flags = fcntl(fd, F_GETFL); 获取原来的标志
+	flags |= O_NONBLOCK; //加上非堵塞的标志
+	fcntl(fd, F_SETFL, flags);  设置新的标志
+
+6. truncate 指定文件的大小
+       int truncate(const char *path, off_t length);
+       int ftruncate(int fd, off_t length);
+       两个函数功能都是一样，truncate的第一个参数为文件名，
+ftruncate的第一个参数为文件描述符
+
+   fseek+ftell可以获取文件大小
+7. lseek  重新指定文件的offset
+	off_t   lseek(int fd, off_t off, int whence);
+	返回值为偏移了多少个字节
+	whence:
+	SEEK_SET， 把offset设为off字节处
+	SEEK_CUR,  把offset设为当前的值加上off的值
+	SEEK_END,  把offset设为文件大小加上off的值
+
+8. dup2(old, new) 重定向文件描述符， 让new文件描述符成为old文件描述符
+	
+	dup2(fd, 1); //把文件描述符fd设为标准输出
+
+
+9.
+	#include <pwd.h>
+   /etc/passwd文件里存放有关于用户名及uid的信息
+   
+   //从/etc/passwd文件里获取一条记录
+   struct passwd *getpwent(void); //这个函数调用一次后,对文件的偏移也会下移一行
+   void setpwent(void); //改变对文件的偏移为文件头
+   void endpwent(void);	//关闭对passwd文件的操作
+
+   /////////
+#include <grp.h>
+   /etc/group文件里存放关于用户组名及gid的信息
+       struct group *getgrent(void);
+       void setgrent(void);
+       void endgrent(void); 
+
+
+10. stat 获取文件属性
+	struct stat buf;
+	stat("./1234.txt", &buf);		
+
+	struct tm *mytm = localtime(&buf.st_mtime);
+	年份 ＝ 1900 + mytm->tm_year;
+	月份 = 1 + mytm->tm_mon;
+
+作业： 实现touch , cp , cat 
+
+ls -l 单个文件		
+
+
+
+
+
+
+
+

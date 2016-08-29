@@ -1,0 +1,70 @@
+			
+		  78
+		/
+	  66
+	/
+		\
+		  56
+55
+		  47
+		/
+	\
+	  44
+		\
+		  23
+			
+
+void show_tree(struct node *head)
+{
+        if (NULL == head)
+                return;
+
+        printf("%02d ", head->data);
+        show_tree(head->left);
+        show_tree(head->right);
+}
+
+1 -->  A  --> C --> E --> F --> D --> B --> G --> I --> J --> H --> K --> L
+
+1. head == 55
+  {
+	show_tree(44);  // A
+	...
+	show_tree(66);  // B
+  }
+
+  A show_tree(44)
+  {
+	show_tree(23); // C
+	..
+	show_tree(47); // D	
+  }
+
+	C show_tree(23)
+	{
+		show_tree(NULL); //E
+		...
+		show_tree(NULL); //F
+	}
+
+		B show_tree(66)
+		 {
+			show_tree(56); //G
+			...
+			show_tree(78); //H
+		 }
+
+		G  show_tree(56)
+		{
+			show_tree(NULL); //I
+			...
+			show_tree(NULL); //J
+		}
+
+		H show_tree(78)
+		{
+			show_tree(NULL); // K
+			...
+			show_tree(NULL); // L
+		}
+
