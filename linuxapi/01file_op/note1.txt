@@ -1,4 +1,4 @@
-
+2222
 文件: linux系统上一切皆文件. 硬件在系统驱动好后也会有一个或多个文件与之对应,这些文件叫设备文件
 . 设备文件是用于应用程序通过操作设备文件来调用相应的驱动代码，使用硬件的功能.
 
@@ -119,8 +119,7 @@ ftruncate的第一个参数为文件描述符
 	SEEK_CUR,  把offset设为当前的值加上off的值
 	SEEK_END,  把offset设为文件大小加上off的值
 
-8. dup2(old, new) 重定向文件描述符， 让new文件描述符成为old文件描述符
-	
+8. dup2(old, new) 重定向文件描述符， 让old文件描述符成为new文件描述符
 	dup2(fd, 1); //把文件描述符fd设为标准输出
 
 
@@ -133,6 +132,7 @@ ftruncate的第一个参数为文件描述符
    void setpwent(void); //改变对文件的偏移为文件头
    void endpwent(void);	//关闭对passwd文件的操作
 
+	根据uid找到相应的用户名
    /////////
 #include <grp.h>
    /etc/group文件里存放关于用户组名及gid的信息
@@ -140,6 +140,12 @@ ftruncate的第一个参数为文件描述符
        void setgrent(void);
        void endgrent(void); 
 
+	根据gid找到相应的组名
+
+       int stat(const char *path, struct stat *buf);
+       int fstat(int fd, struct stat *buf);
+       int lstat(const char *path, struct stat *buf);
+       注意：这三个函数功能都是一样。 stat参数要的是一个包含路径的字符串，fstat参数已打开文件得到的文件描述符, lstat如查看是一个软连接，则查看的是软连接本身的属性，而不是软连接指向的文件的属性	
 
 10. stat 获取文件属性
 	struct stat buf;
@@ -154,8 +160,17 @@ ftruncate的第一个参数为文件描述符
 ls -l 单个文件		
 
 
+注意：  gcc  -DRED=8899  test.c   // -DRED=8899  相当于在源文件里增加：#define RED 8899
+
+获取文件大小的方法：
+	1. stat
+
+	2. lseek(fd, 0, SEEK_END); // 确保fd的偏移是处在第0个字节
+
+        3. 从文件的第0个字节，一直读到文件尾，统计
 
 
+	
 
 
 

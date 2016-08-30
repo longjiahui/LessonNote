@@ -1,4 +1,4 @@
-1. access 用来检查文件是否存在和权限
+1. access 用来检查文件是否存在和当前用户的操作权限
 	int access(const char *pathname, int mode);
 	返回值为0表示成功
 	mode: F_OK, R_OK, W_OK, X_OK
@@ -6,7 +6,9 @@
    系统里的umask用于限制用户创建出来的文件的权限
    生成文件的权限: 用户指定的权限 &  (~umask)
 2. umask 用来改变当前进程的umask
-	
+	创建文件时的权限  & (~umask)
+	如： umake = 0022,  创建文件时提定的权限为0777
+		则真正的权限为:  0777 & (~0022)  == 0755
 
    change mode
 3. chmod  用改变文件的权限
@@ -86,7 +88,24 @@
            char           d_name[256]; /* filename */
         };
 
-17. inotify //临控文件系统的事件  man 7 inotify
+17. 获取/设置当前进程的资源限制:
+	#include <sys/resource.h>
+       int getrlimit(int resource, struct rlimit *rlim);
+       int setrlimit(int resource, const struct rlimit *rlim);	
+
+    参数resource表示资源的种类:
+      RLIMIT_AS: 可用虚拟内存的最大值
+      RLIMIT_DATA: 数据段的最大值
+      RLIMIT_NOFILE: 最大的文件描述符的数值
+
+    参数rlim表示要设置的值：
+　   struct rlimit {
+       rlim_t rlim_cur;  /* Soft limit */
+       rlim_t rlim_max;  /* Hard limit (ceiling for rlim_cur) */
+    };
+
+
+18. inotify //临控文件系统的事件  man 7 inotify
 	#include <sys/inotify.h>
 
 	1.int inotify_init(void) //初始化实例,得到一个文件描述符(ifd)
@@ -104,21 +123,7 @@
              char     name[];   /* Optional null-terminated name */
          };
 
-18. 获取/设置当前进程的资源:
-	#include <sys/resource.h>
-       int getrlimit(int resource, struct rlimit *rlim);
-       int setrlimit(int resource, const struct rlimit *rlim);	
 
-    参数resource表示资源的种类:
-      RLIMIT_AS: 可用虚拟内存的最大值
-      RLIMIT_DATA: 数据段的最大值
-      RLIMIT_NOFILE: 最大的文件描述符的数值
-
-    参数rlim表示要设置的值：
-　   struct rlimit {
-       rlim_t rlim_cur;  /* Soft limit */
-       rlim_t rlim_max;  /* Hard limit (ceiling for rlim_cur) */
-    };
 	
-作业：1.mkdir -p   2.cp -r , 3. 继续完成ll, 
+作业：1.mkdir -p    2. 继续完成ll查看目录 , 3.cp -r
 
